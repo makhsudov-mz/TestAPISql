@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using TestAPISql;
+using TestAPISql.Modules.Users.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
               options.UseMySql("server=localhost;user=root;password=;database=test_sql_db;",
-            new MySqlServerVersion(new Version(8, 0, 25))));
+            new MySqlServerVersion(new Version(8, 0, 25))).
+            LogTo(s => System.Diagnostics.Debug.WriteLine(s)));
+
+builder.Services.AddUserServiceCollections();
 
 
 var app = builder.Build();

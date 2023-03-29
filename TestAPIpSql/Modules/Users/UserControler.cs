@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
+using TestAPISql.Modules.Users.Repository;
+using TestAPISql.Modules.Users.Services;
 
 namespace TestAPISql.Modules.Users
 {
@@ -7,21 +9,56 @@ namespace TestAPISql.Modules.Users
     [Route("users")]
     public class UserControler : ControllerBase
     {
-        private readonly AppDbContext _context;
-
-        public UserControler(AppDbContext context)
+        private readonly IUserService _userService;
+        public UserControler(IUserService userService)
         {
-            _context = context;
+            _userService = userService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUser()
         {
-            var user = await _context.User.FindAsync(u => u.id == 2);
+            var users = await _userService.GetUsersAsync();
 
-            if (user == null) return NotFound();
+            if (users == null)
+                return NotFound();
+
+            return new JsonResult(new { users = users });
+        }
+
+        [HttpGet("user/{id}")]
+        public async Task<IActionResult> GetUserById([FromRoute] int id)
+        {
+            var user = await _userService.GetUserByIdAsync(id);
+
+            if(user == null)
+                return NotFound();
 
             return new JsonResult(new { user = user });
+        }
+
+        [HttpPut("user/{id}")]
+        public async Task<IActionResult> UpdateUser([FromRoute] int id)
+        {
+            var user = await _userService.UpdateUser(id);
+
+            if(user == null)
+                return NotFound();
+
+            return new JsonResult(new { user = user });
+        }
+
+        [HttpDelete("user/{id}")]
+        public async Task<IActionResult> DeleteUserById([FromRoute] int id)
+        {
+            var status = await _userService.DeleteUserByIdAsync(id);
+            
+            if(status == 0)
+                return NotFound();
+            if(status == -1)
+                return StatusCode(500);
+
+            return Ok(status);
         }
     }
 }

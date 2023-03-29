@@ -1,4 +1,5 @@
 ﻿using TestAPISql.Modules.Users.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace TestAPISql.Modules.Users.Repository
 {
@@ -11,9 +12,42 @@ namespace TestAPISql.Modules.Users.Repository
             _appDbContext = appDbContext;
         }
 
-        public async Task<User> GetUser(int id)
+        public async Task<User?> GetUserByIdAsync(int id) => 
+            await _appDbContext.Users.FindAsync(id);
+
+        public async Task<User?> GetUserByIdAsyncAsNoTracking(int id) => 
+            await _appDbContext.Users.
+                Where(u => u.Id == id).
+                AsNoTracking().
+                FirstOrDefaultAsync();
+
+        public async Task<List<User>> GetUsersAsync() => await _appDbContext.Users.ToListAsync();
+
+        public async Task<List<User>> GetUsersAsyncAsNoTracking() => 
+            await _appDbContext.Users.AsNoTracking().ToListAsync();
+
+        public async Task<User?> GetUserByIdForUpdate(int id) => 
+            await _appDbContext.Users.                                                     
+                FromSqlRaw($@"SELECT * FROM `users` WHERE `id` = {id} FOR UPDATE").                          
+                FirstOrDefaultAsync();
+
+        public async Task Delete(User user)
         {
-           return await _appDbContext.User.FindAsync(u => u.id == id);
+             _appDbContext.Set<User>().Remove(user);
+
+            await SaveAsync();
+        }
+
+        public async Task Update(User user)
+        {
+            _appDbContext.Set<User>().Update(user);
+
+            await SaveAsync();
+        }
+        
+        public async Task SaveAsync()
+        {
+            await _appDbContext.SaveChangesAsync();
         }
     }
 }

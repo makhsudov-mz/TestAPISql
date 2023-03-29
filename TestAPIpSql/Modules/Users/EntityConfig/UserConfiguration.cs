@@ -14,6 +14,7 @@ namespace TestAPISql.Modules.Users.EntityConfig
             builder.HasIndex(u => u.Id).IsUnique();
             builder.Property(u => u.Name).HasMaxLength(128);
             builder.Property(u => u.Login).HasMaxLength(128);
+            builder.Property(u => u.Email).HasMaxLength(128);
             builder.Property(u => u.Password).HasMaxLength(128);
             builder.Property(u => u.Token).HasMaxLength(128);
         }

@@ -1,5 +1,8 @@
-﻿namespace TestAPISql.Modules.Users.Entity
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace TestAPISql.Modules.Users.Entity
 {
+    [Table("Users")]
     public class User
     {
         public int Id { get; set; }
