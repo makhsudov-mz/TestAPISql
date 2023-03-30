@@ -28,7 +28,7 @@ namespace TestAPISql.Modules.Users.Repository
 
         public async Task<User?> GetUserByIdForUpdate(int id) => 
             await _appDbContext.Users.                                                     
-                FromSqlInterpolated($@"SELECT * FROM `users` WHERE `id` = {id} FOR UPDATE").                          
+                FromSqlInterpolated($"SELECT * FROM `users` WHERE `id` = {id} FOR UPDATE").                          
                 FirstOrDefaultAsync();
 
         public async Task Delete(User user)
