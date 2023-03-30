@@ -13,8 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-              options.UseMySql("server=localhost;user=root;password=;database=test_sql_db;",
-            new MySqlServerVersion(new Version(8, 0, 25))));
+              options.UseNpgsql("Host=localhost;Port=5432;Database=test_sql_db;Username=postgres;Password=0626"));
 
 builder.Services.AddUserServiceCollections();
 
