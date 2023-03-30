@@ -43,9 +43,9 @@ namespace TestAPISql.Modules.Users.Services
 
                     WrireLog("SaveChangesAsync  >> UpdateUserAsNoTracking");
 
-                    await _appDbContext.SaveChangesAsync();
-
                     await Task.Delay(2000);
+
+                    await _appDbContext.SaveChangesAsync();
 
                     transaction.Commit();
     
@@ -80,9 +80,9 @@ namespace TestAPISql.Modules.Users.Services
 
                     WrireLog("SaveChangesAsync  >> UpdateUser");
 
-                    await _appDbContext.SaveChangesAsync();
-
                     await Task.Delay(20000);
+
+                    await _appDbContext.SaveChangesAsync();
 
                     transaction.Commit();
                     WrireLog("Commit transaction >> UpdateUser");
@@ -117,9 +117,9 @@ namespace TestAPISql.Modules.Users.Services
 
                     WrireLog("SaveChangesAsync  >> UpdateUserForUpdate");
 
-                    await _appDbContext.SaveChangesAsync();
-
                     await Task.Delay(20000);
+
+                    await _appDbContext.SaveChangesAsync();
 
                     transaction.Commit();
                     WrireLog("Commit transaction >> UpdateUserForUpdate");
