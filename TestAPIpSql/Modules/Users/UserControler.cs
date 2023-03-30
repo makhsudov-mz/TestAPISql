@@ -47,6 +47,18 @@ namespace TestAPISql.Modules.Users
 
             return new JsonResult(new { user = user });
         }
+
+        [HttpPut("user/{id}/ForUpdate")]
+        public async Task<IActionResult> UpdateUserForUpdate([FromRoute] int id)
+        {
+            var user = await _userService.UpdateUserForUpdate(id);
+
+            if(user == null)
+                return NotFound();
+
+            return new JsonResult(new { user = user });
+        }
+
         [HttpPut("user/{id}")]
         public async Task<IActionResult> UpdateUser([FromRoute] int id)
         {
@@ -58,7 +70,7 @@ namespace TestAPISql.Modules.Users
             return new JsonResult(new { user = user });
         }
 
-        [HttpDelete("user/{id}/forUpdate")]
+        [HttpDelete("user/{id}")]
         public async Task<IActionResult> DeleteUserById([FromRoute] int id)
         {
             var status = await _userService.DeleteUserByIdAsync(id);

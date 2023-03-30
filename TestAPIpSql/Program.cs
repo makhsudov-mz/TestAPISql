@@ -13,9 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-              options.UseMySql("server=10.10.2.201;user=root;password=Or!Gami99;database=test_sql_db;",
-            new MySqlServerVersion(new Version(8, 0, 25))).
-            LogTo(s => System.Diagnostics.Debug.WriteLine(s)));
+              options.UseMySql("server=localhost;user=root;password=;database=test_sql_db;",
+            new MySqlServerVersion(new Version(8, 0, 25))));
 
 builder.Services.AddUserServiceCollections();
 
