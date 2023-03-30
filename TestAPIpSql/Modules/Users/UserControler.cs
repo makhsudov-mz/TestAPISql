@@ -80,7 +80,13 @@ namespace TestAPISql.Modules.Users
             if(status == -1)
                 return StatusCode(500);
 
-            return Ok(status);
+            return Ok(200);
+        }
+
+        [HttpPost]
+        public ActionResult CreateUser()
+        {
+            return CreatedAtAction(nameof(CreateUser), $"code: {StatusCodes.Status201Created}");
         }
     }
 }
