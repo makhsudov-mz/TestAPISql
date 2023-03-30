@@ -17,7 +17,7 @@ namespace TestAPISql.Modules.Users.EntityConfig
             builder.Property(u => u.Email).HasMaxLength(128);
             builder.Property(u => u.Password).HasMaxLength(128);
             builder.Property(u => u.Token).HasMaxLength(128);
-            builder.Property(u => u._param_jsons).HasColumnName("param_jsons");
+            builder.Property(u => u._paramJsons).HasColumnName("param_jsons");
         }
     }
 }

@@ -15,17 +15,17 @@ namespace TestAPISql.Modules.Users.Entity
         public string Token { get; set; }
 
         [NotMapped]
-        public ParamsJson? paramsJson
+        public ParamsJson? ParamsJsons
         {
-            get => _param_jsons == null ? new ParamsJson() : JsonConvert.DeserializeObject<ParamsJson>(_param_jsons,
+            get => _paramJsons == null ? new ParamsJson() : JsonConvert.DeserializeObject<ParamsJson>(_paramJsons,
                 new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
 
-            set => _param_jsons = JsonConvert.SerializeObject(value, 
+            set => _paramJsons = JsonConvert.SerializeObject(value, 
                 new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
         }
 
-        [Column("param_jsons")]
-        public string? _param_jsons { get; set; }
+        [Column("ParamJsons")]
+        public string? _paramJsons { get; set; }
     }
 
     public class ParamsJson { }

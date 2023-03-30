@@ -11,14 +11,14 @@ using TestAPISql;
 namespace TestAPISql.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230330110014_Initial")]
+    [Migration("20230330113725_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -54,6 +54,10 @@ namespace TestAPISql.Migrations
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
+
+                    b.Property<string>("_paramJsons")
+                        .HasColumnType("text")
+                        .HasColumnName("param_jsons");
 
                     b.HasKey("Id");
 

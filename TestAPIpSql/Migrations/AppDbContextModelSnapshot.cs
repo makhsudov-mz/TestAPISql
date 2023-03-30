@@ -16,7 +16,7 @@ namespace TestAPISql.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -53,8 +53,8 @@ namespace TestAPISql.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
 
-                    b.Property<string>("_param_jsons")
-                        .HasColumnType("longtext")
+                    b.Property<string>("_paramJsons")
+                        .HasColumnType("text")
                         .HasColumnName("param_jsons");
 
                     b.HasKey("Id");
