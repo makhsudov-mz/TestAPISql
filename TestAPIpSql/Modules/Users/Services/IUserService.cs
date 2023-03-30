@@ -6,6 +6,7 @@ namespace TestAPISql.Modules.Users.Services
     {
         Task<User?> GetUserByIdAsync(int id);
         Task<List<User>> GetUsersAsync();
+        Task<User> UpdateUserAsNoTracking(int id);
         Task<User> UpdateUser(int id);
         Task<int?> DeleteUserByIdAsync(int id);
     }

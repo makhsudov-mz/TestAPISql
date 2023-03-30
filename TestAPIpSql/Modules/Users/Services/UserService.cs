@@ -26,9 +26,9 @@ namespace TestAPISql.Modules.Users.Services
             return await _userRepository.GetUsersAsync();
         }
 
-        public async Task<User> UpdateUser(int id)
+        public async Task<User> UpdateUserAsNoTracking(int id)
         {
-            using(var transaction = _appDbContext.Database.BeginTransaction())
+            using(var transaction = await _appDbContext.Database.BeginTransactionAsync())
             {
                 try
                 {
@@ -38,7 +38,37 @@ namespace TestAPISql.Modules.Users.Services
                     if(user == null)
                         return null;
 
-                    user.Login = $"Te***{id}";
+                    user.Login = $"asNoTracking {id}";
+
+                    await _appDbContext.SaveChangesAsync();
+
+                    await Task.Delay(2000);
+
+                    transaction.Commit();
+                    return user;
+                }
+                catch(Exception ex )
+                {
+                    Console.WriteLine($"Eror: {ex.Message}");
+                    transaction.Rollback();
+
+                    return null;
+                }
+            }
+        }
+        public async Task<User> UpdateUser(int id)
+        {
+            using(var transaction = await _appDbContext.Database.BeginTransactionAsync())
+            {
+                try
+                {
+
+                    var user = await _userRepository.GetUserByIdAsync(id);
+
+                    if(user == null)
+                        return null;
+
+                    user.Login = $"Update {id}";
 
                     await _appDbContext.SaveChangesAsync();
 
@@ -48,18 +78,18 @@ namespace TestAPISql.Modules.Users.Services
                     return user;
 
                 }
-                catch(Exception ex )
+                catch(Exception ex)
                 {
                     Console.WriteLine($"Eror: {ex.Message}");
                     transaction.Rollback();
+
                     return null;
                 }
             }
         }
-
         public async Task<int?> DeleteUserByIdAsync(int id)
         {
-            using(var transaction =  _appDbContext.Database.BeginTransaction())
+            using(var transaction = await _appDbContext.Database.BeginTransactionAsync())
             {
                 try
                 {
@@ -71,9 +101,9 @@ namespace TestAPISql.Modules.Users.Services
                         return 0;
                     }
 
-                    await Task.Delay(20000);
+                    await _userRepository.Delete(user);
 
-                    //await _userRepository.Delete(user);
+                    await Task.Delay(20000);
 
                     transaction.Commit();
 
