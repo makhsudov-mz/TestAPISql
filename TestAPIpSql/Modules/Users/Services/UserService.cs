@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-using TestAPISql.Modules.Users.Entity;
+﻿using TestAPISql.Modules.Users.Entity;
 using TestAPISql.Modules.Users.Repository;
-
 
 namespace TestAPISql.Modules.Users.Services
 {

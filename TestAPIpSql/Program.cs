@@ -1,10 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 using TestAPISql;
 using TestAPISql.Modules.Users.Extensions;
 
-const string connectionString = "server=10.10.2.201;user=root;password=Or!Gami99;database=test_sql_db;";
+const string connectionString = "server=localhost;user=root;password=;database=test_sql_db;";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,10 +17,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//var confing =  builder.Configuration();
 builder.Services.AddDbContext<AppDbContext>(options =>
-              options.UseMySql(connectionString,
-            ServerVersion.AutoDetect(connectionString)).LogTo(Console.WriteLine, LogLevel.Information));
+              options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)).
+            LogTo(Console.WriteLine, LogLevel.Information));
 
 builder.Services.AddUserServiceCollections();
 
