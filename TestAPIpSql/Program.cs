@@ -1,9 +1,5 @@
-using Microsoft.EntityFrameworkCore;
-
 using TestAPISql;
 using TestAPISql.Modules.Users.Extensions;
-
-const string connectionString = "server=localhost;user=root;password=;database=test_sql_db;";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,16 +9,11 @@ builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-              options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)).
-            LogTo(Console.WriteLine, LogLevel.Information));
-
+builder.Services.AddAppDbContectCollection(builder.Configuration);
 builder.Services.AddUserServiceCollections();
-
 
 var app = builder.Build();
 
