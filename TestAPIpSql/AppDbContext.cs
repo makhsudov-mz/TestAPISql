@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
+using System.Reflection;
+
 using TestAPISql.Modules.Users.Entity;
 using TestAPISql.Modules.Users.EntityConfig;
 
@@ -14,6 +16,8 @@ namespace TestAPISql
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
             modelBuilder.ApplyConfiguration(new UserConfiguration { });
             modelBuilder.Entity<User>().HasData(UserHasData.UserHasDataes);
         }
