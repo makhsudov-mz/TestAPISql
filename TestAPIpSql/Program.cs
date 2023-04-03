@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 using TestAPISql;
 using TestAPISql.Modules.Users.Extensions;
 
