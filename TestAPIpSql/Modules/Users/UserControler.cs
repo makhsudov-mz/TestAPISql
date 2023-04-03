@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using TestAPISql.Modules.Users.Repository;
 using TestAPISql.Modules.Users.Services;
 
 namespace TestAPISql.Modules.Users

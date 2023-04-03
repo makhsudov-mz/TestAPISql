@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-using TestAPISql.Modules.Users.Entity;
+﻿using TestAPISql.Modules.Users.Entity;
 using TestAPISql.Modules.Users.Repository;
-
 
 namespace TestAPISql.Modules.Users.Services
 {
@@ -43,7 +40,7 @@ namespace TestAPISql.Modules.Users.Services
 
                     user.Login = $"asNoTracking {id}";
 
-                    WrireLog("Delay");
+                    WrireLog("UpdateUserAsNoTracking >> Delay");
                     await Task.Delay(2000);
 
                     WrireLog("SaveChangesAsync  >> UpdateUserAsNoTracking");
@@ -83,7 +80,7 @@ namespace TestAPISql.Modules.Users.Services
 
                     user.Login = $"Update {id}";
 
-                    WrireLog("Delay");
+                    WrireLog("UpdateUser >> Delay");
                     await Task.Delay(20000);
 
                     WrireLog("SaveChangesAsync  >> UpdateUser");
@@ -107,7 +104,7 @@ namespace TestAPISql.Modules.Users.Services
 
         public async Task<User> UpdateUserForUpdate(int id)
         {
-            using(var transaction =  _appDbContext.Database.BeginTransaction())
+            using(var transaction = await _appDbContext.Database.BeginTransactionAsync())
             {
                 WrireLog("Start transaction >> UpdateUserForUpdate");
                 try
@@ -121,7 +118,7 @@ namespace TestAPISql.Modules.Users.Services
 
                     user.Login = $"ForUpdate {id}";
 
-                    WrireLog("Delay");
+                    WrireLog("UpdateUserForUpdate >> Delay");
                     await Task.Delay(20000);
 
                     WrireLog("SaveChangesAsync  >> UpdateUserForUpdate");
@@ -161,7 +158,7 @@ namespace TestAPISql.Modules.Users.Services
                         return 0;
                     }
 
-                    WrireLog("Delay");
+                    WrireLog("DeleteUserByIdAsync >> Delay");
 
                     await Task.Delay(2000);
 
