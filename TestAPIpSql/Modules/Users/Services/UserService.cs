@@ -104,7 +104,7 @@ namespace TestAPISql.Modules.Users.Services
 
         public async Task<User> UpdateUserForUpdate(int id)
         {
-            using(var transaction =  _appDbContext.Database.BeginTransaction())
+            using(var transaction = await _appDbContext.Database.BeginTransactionAsync())
             {
                 WrireLog("Start transaction >> UpdateUserForUpdate");
                 try

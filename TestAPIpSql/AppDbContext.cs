@@ -17,5 +17,11 @@ namespace TestAPISql
             modelBuilder.ApplyConfiguration(new UserConfiguration { });
             modelBuilder.Entity<User>().HasData(UserHasData.UserHasDataes);
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
+
     }
 }
