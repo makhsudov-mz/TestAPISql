@@ -1,3 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+
+using TestAPISql;
+using TestAPISql.Modules.Users.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +13,12 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//var confing =  builder.Configuration();
+builder.Services.AddDbContext<AppDbContext>(options =>
+              options.UseNpgsql("Host=localhost;Port=5432;Database=test_sql_db;Username=postgres;Password=0626"));
+
+builder.Services.AddUserServiceCollections();
 
 var app = builder.Build();
 
